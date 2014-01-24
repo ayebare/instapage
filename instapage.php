@@ -4,7 +4,7 @@ Plugin Name: InstaPage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
 Description: InstaPage Wordpress Plugin
 Author: InstaPage
-Version: 1.4
+Version: 1.5
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -22,6 +22,7 @@ class InstaPage
 	const wp_version_required = '3.4';
 	const php_version_required = '5.2';
 	const endpoint = 'http://app.instapage.com';
+	//const endpoint = 'http://instapage.me';
 
 	protected $my_pages = false;
 	protected $plugin_details = false;
@@ -515,10 +516,13 @@ EOT;
 				'httpversion' => '1.0',
 				'blocking' => true,
 				'headers' => array(),
-				'body' => array(
+				'body' => array
+				(
 					'useragent' => $_SERVER[ 'HTTP_USER_AGENT' ],
 					'ip' => $_SERVER['REMOTE_ADDR'],
-					'cookies' => $cookies
+					'cookies' => $cookies,
+					'custom' => $_GET[ 'custom' ] ? $_GET[ 'custom' ] : null,
+					'variant' => $_GET[ 'variant' ] ? $_GET[ 'variant' ] : null
 				),
 				'cookies' => array()
 			)
@@ -1073,12 +1077,15 @@ EOT;
 
 		$delete_link = get_delete_post_link($post->ID);
 
-		$instapage_post_type = 'lp';
+		$instapage_post_type = null;
 		$redirect_method = 'http';
-		if ($isFrontPage) {
-			$instapage_post_type = 'fp';
-		} elseif ($is_not_found_page) {
-			$instapage_post_type = 'nf';
+		if ($isFrontPage)
+		{
+			$instapage_post_type = 'home';
+		}
+		elseif( $is_not_found_page )
+		{
+			$instapage_post_type = '404';
 		}
 
 		$form = new InstapageView( dirname( __FILE__ ) .'/templates/instapage/edit.php' );

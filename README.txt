@@ -1,8 +1,8 @@
 === InstaPage Wordpress Plugin ===
 Tags: instapage, landing page
 Requires at least: 3.4
-Tested up to: 3.7.1
-Stable tag: 1.4
+Tested up to: 3.8.1
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,10 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 1.5 =
+- Allowed to use 'custom' parameter in url to track custom variables ( http://your-wordpress-website/landing-page?custom=custom-value-to-pass )
+- Allowed to force certain variation to display ( http://your-wordpress-website/landing-page?variant=B )
+
 = 1.4 =
 Stable version.
 
@@ -51,6 +55,7 @@ Stable version.
 - Google+
 - Mailchimp
 - AWeber
+- GetResponse
 - ConstantContact
 - Salesforce
 - Optimizely
