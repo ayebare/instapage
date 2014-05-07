@@ -4,7 +4,7 @@ Plugin Name: InstaPage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
 Description: InstaPage Wordpress Plugin
 Author: InstaPage
-Version: 1.5
+Version: 1.6
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -522,7 +522,8 @@ EOT;
 					'ip' => $_SERVER['REMOTE_ADDR'],
 					'cookies' => $cookies,
 					'custom' => $_GET[ 'custom' ] ? $_GET[ 'custom' ] : null,
-					'variant' => $_GET[ 'variant' ] ? $_GET[ 'variant' ] : null
+					'variant' => $_GET[ 'variant' ] ? $_GET[ 'variant' ] : null,
+					'tags' => $_GET
 				),
 				'cookies' => array()
 			)
@@ -713,7 +714,7 @@ EOT;
 			'publicly_queryable' => true,
 			'show_ui' => true,
 			'query_var' => true,
-			'menu_icon' => plugin_dir_url( __FILE__ ) . 'admin/img/ip-logo.png',
+			'menu_icon' => 'http://instapage-blog.s3.amazonaws.com/instapage-logo-black-16x16.png',
 			'capability_type' => 'page',
 			'menu_position' => null,
 			'rewrite' => false,
@@ -756,7 +757,6 @@ EOT;
 
 	public function isServicesRequest()
 	{
-
 		// get current url
 		$current = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		// calculate the path
@@ -928,6 +928,7 @@ EOT;
 
 	public function processProxyServices()
 	{
+		ob_start();
 		$url = $_GET[ 'url' ];
 
 		$url = self::endpoint . $url;
@@ -946,7 +947,11 @@ EOT;
 			)
 		);
 
-		echo $response[ 'body' ];
+		ob_end_clean();
+
+		header( 'Content-Type: text/json; charset=UTF-8' );
+
+		echo trim( $response[ 'body' ] );
 		exit;
 	}
 
