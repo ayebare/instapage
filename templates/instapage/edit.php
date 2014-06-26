@@ -13,7 +13,7 @@
 	<div class="row-fluid form-horizontal">
 		<br/>
 		<div class="control-group">
-			<label class="control-label">InstaPage type</label>
+			<label class="control-label">instapage type</label>
 			<div class="controls">
 				<div class="btn-group multichoice subsection" data-subsection="instapage_url" data-target="instapage-post-type">
 
@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="control-group">
-			<label for="instapage_my_selected_page" class="control-label">InstaPage to display</label>
+			<label for="instapage_my_selected_page" class="control-label">instapage to display</label>
 			<div class="controls">
 				<select name="instapage_my_selected_page" id="instapage_my_selected_page" class="input-xlarge">
 					<?php foreach ($field['options'] as $option): ?>
@@ -38,7 +38,7 @@
 						</option>
 					<?php endforeach; ?>
 				</select>
-				<a data-content="Select one of the instapage that you've created on &lt;strong&gt;http://app.instapage.com/dashboard/&lt;/strong&gt;" data-original-title="InstaPage to be displayed" rel="popover" class="instapage-help-ico">&nbsp;</a>
+				<a data-content="Select one of the instapage that you've created on &lt;strong&gt;http://app.instapage.com/dashboard/&lt;/strong&gt;" data-original-title="instapage to be displayed" rel="popover" class="instapage-help-ico">&nbsp;</a>
 			</div>
 		</div>
 
@@ -48,7 +48,7 @@
 				<div class="input-prepend">
 					<span class="add-on"><?php echo site_url() ?>/</span><input type="textbox" class="input-xlarge" id="instapage_slug" name="instapage_slug" value="<?php echo $meta_slug ?>" />
 				</div>
-				<a class="instapage-help-ico" rel="popover" data-original-title="InstaPage url" data-content="Pick your own url based on your WordPress site. It will work as if the selected InstaPage was a &quot;Page&quot; on your site.">&nbsp;</a>
+				<a class="instapage-help-ico" rel="popover" data-original-title="instapage url" data-content="Pick your own url based on your Wordpress site. It will work as if the selected instapage was a &quot;Page&quot; on your site.">&nbsp;</a>
 				<?php if ($missing_slug): ?>
 					<label for="instapage_slug" generated="true" class="error" style="color:#ff3300" id="lp-error-path">Valid path is required.</label>
 				<?php endif; ?>
@@ -70,6 +70,6 @@
 
 	<div>
 		<hr />
-		<a href="http://app.instapage.com/dashboard" target="_blank">Manage your InstaPage account</a>
+		<a href="http://app.instapage.com/dashboard" target="_blank">Manage your instapage account</a>
 	</div>
 </div>

@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: InstaPage Wordpress Plugin
+Plugin Name: instapage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
-Description: InstaPage Wordpress Plugin
-Author: InstaPage
-Version: 1.6
+Description: instapage Wordpress Plugin
+Author: instapage
+Version: 1.6.1
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -42,7 +42,7 @@ class InstaPage
 
 		if ( get_option( 'permalink_structure' ) == '' )
 		{
-			$this->showMessage( false, 'InstaPage plugin needs <a href="options-permalink.php">permalinks</a> enabled!' );
+			$this->showMessage( false, 'instapage plugin needs <a href="options-permalink.php">permalinks</a> enabled!' );
 			return;
 		}
 
@@ -88,7 +88,7 @@ class InstaPage
 
 	public function pluginOptionsMenu()
 	{
-		add_options_page( 'InstaPage', 'InstaPage', 'administrator', __FILE__, array( &$this, 'showSettingsPage' ) );
+		add_options_page( 'instapage', 'instapage', 'administrator', __FILE__, array( &$this, 'showSettingsPage' ) );
 	}
 
 	// Add the Meta Box
@@ -99,7 +99,7 @@ class InstaPage
 		add_meta_box
 		(
 			'instapage_meta_box',
-			'Configure your InstaPage',
+			'Configure your instapage',
 			array(&$this, 'showCustomMetaBox'),
 			'instapage_post',
 			'normal',
@@ -303,11 +303,11 @@ class InstaPage
 		global $wp_version;
 		// Check wordpress version
 		if (version_compare(self::wp_version_required, $wp_version, '>')) {
-			return 'InstaPage plugin requires Wordpress minimum version of ' . self::wp_version_required;
+			return 'instapage plugin requires Wordpress minimum version of ' . self::wp_version_required;
 		}
 
 		if (version_compare(self::php_version_required, phpversion(), '>')) {
-			return 'InstaPage requires PHP minimum version of ' . self::php_version_required;
+			return 'instapage requires PHP minimum version of ' . self::php_version_required;
 		}
 		return true;
 	}
@@ -401,7 +401,7 @@ class InstaPage
 		<h3><a href="https://www.instapage.com/">instapage&trade;</a> Alert</h3>
 		<div class="error">$msg</div>
 		<div>
-			<a href="http://www.instapage.com/">InstaPage&trade;</a>
+			<a href="http://www.instapage.com/">instapage&trade;</a>
 			<a href="http://www.instapage.com/support/">Support</a>
 		</div>
 	</div>
@@ -607,12 +607,12 @@ EOT;
 		}
 		catch( InstapageApiCallException $e )
 		{
-			return $this->formatError( "Can't reach InstaPage server! ". $e->getMessage() );
+			return $this->formatError( "Can't reach instapage server! ". $e->getMessage() );
 		}
 
 		if ($page === false)
 		{
-			return $this->formatError( "InstaPage says: Page Not found!");
+			return $this->formatError( "instapage says: Page Not found!");
 		}
 
 		return $this->fixHtmlHead( $page['body'] );
@@ -674,7 +674,7 @@ EOT;
 
 		if ( !is_array( $res ) && !is_object( $res ) )
 		{
-			throw new InstapageApiCallException( 'InstaPage Services returned empty response.' );
+			throw new InstapageApiCallException( 'instapage Services returned empty response.' );
 		}
 
 		$data = new stdClass();
@@ -695,21 +695,21 @@ EOT;
 	public function instapagePostRegister() {
 		$this->silentUpdateCheck();
 		$labels = array(
-			'name' => _x('InstaPage', 'Post type general name'),
-			'singular_name' => _x('InstaPage','Post type singular name'),
-			'add_new' => _x('Add New', 'InstaPage'),
-			'add_new_item' => __('Add New InstaPage'),
-			'edit_item' => __('Edit InstaPage'),
-			'new_item' => __('New InstaPage'),
-			'view_item' => __('View InstaPage'),
-			'search_items' => __('Search InstaPage'),
+			'name' => _x('instapage', 'Post type general name'),
+			'singular_name' => _x('instapage','Post type singular name'),
+			'add_new' => _x('Add New', 'instapage'),
+			'add_new_item' => __('Add New instapage'),
+			'edit_item' => __('Edit instapage'),
+			'new_item' => __('New instapage'),
+			'view_item' => __('View instapage'),
+			'search_items' => __('Search instapage'),
 			'not_found' => __('Nothing found'),
 			'not_found_in_trash' => __('Nothing found in Trash'),
 			'parent_item_colon' => ''
 		);
 		$args = array(
 			'labels' => $labels,
-			'description' => 'Allows you to have InstaPage on your WordPress site.',
+			'description' => 'Allows you to have instapage on your WordPress site.',
 			'public' => false,
 			'publicly_queryable' => true,
 			'show_ui' => true,
@@ -795,7 +795,7 @@ EOT;
 
 			if( !$response )
 			{
-				throw new Exception( 'Error connecting to InstaPage' );
+				throw new Exception( 'Error connecting to instapage' );
 			}
 
 			$pages = array();
@@ -840,6 +840,7 @@ EOT;
 
 		// get current url
 		$current = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
 		// calculate the path
 		$part = substr($current, strlen(site_url()));
 
@@ -850,12 +851,12 @@ EOT;
 
 		// strip parameters
 		$real = explode('?', $part);
-		$tokens = explode('/', $real[0]);
+		$tokens = $real[ 0 ];
 
-		if (array_key_exists( $tokens[0], $posts ) )
+		if (array_key_exists( $tokens, $posts ) )
 		{
-			if ($tokens[0] == '') return false;
-			return $posts[$tokens[0]];
+			if ($tokens == '') return false;
+			return $posts[ $tokens ];
 		}
 
 		return false;
@@ -1053,7 +1054,7 @@ EOT;
 
 		if ( !$pages )
 		{
-			echo 'No pages pushed to your wordpress. Please go to your <a href="http://app.instapage.com/dashboard" target="_blank">InstaPage</a> and push some pages.';
+			echo 'No pages pushed to your wordpress. Please go to your <a href="http://app.instapage.com/dashboard" target="_blank">instapage</a> and push some pages.';
 			return;
 		}
 
@@ -1199,7 +1200,6 @@ EOT;
 			return $post_id;
 		}
 
-
 		$old = get_post_meta( $post_id, 'instapage_my_selected_page', true );
 		$new = $_POST['instapage_my_selected_page'];
 
@@ -1254,7 +1254,7 @@ EOT;
 
 		// Custom URL
 		$old = get_post_meta($post_id, 'instapage_slug', true);
-		$new = sanitize_title($_POST['instapage_slug']);
+		$new = trim( strip_tags( $_POST['instapage_slug'] ) );
 
 		if ($new && $new != $old)
 		{
@@ -1306,7 +1306,7 @@ EOT;
 
 		if (!$response)
 		{
-			$this->showMessage(false, 'Error while checking for update. Can\'t reach InstaPage server. Please check your connection.');
+			$this->showMessage(false, 'Error while checking for update. Can\'t reach instapage server. Please check your connection.');
 			return;
 		}
 
@@ -1327,7 +1327,7 @@ EOT;
 
 		$plugin_file = 'instapage/instapage.php';
 		$upgrade_url = wp_nonce_url('update.php?action=upgrade-plugin&amp;plugin=' . urlencode($plugin_file), 'upgrade-plugin_' . $plugin_file);
-		$message = 'There is a new version of InstaPage plugin available! ( ' . $vew_version . ' )<br>You can <a href="' . $upgrade_url . '">update</a> to the latest version automatically or <a href="' . $url . '">download</a> the update and install it manually.';
+		$message = 'There is a new version of instapage plugin available! ( ' . $vew_version . ' )<br>You can <a href="' . $upgrade_url . '">update</a> to the latest version automatically or <a href="' . $url . '">download</a> the update and install it manually.';
 		$this->showMessage(true, $message);
 	}
 

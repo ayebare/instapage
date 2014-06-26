@@ -78,5 +78,5 @@
 
 <div>
 	<hr />
-	<a href="http://app.instapage.com/dashboard" target="_blank">Manage your InstaPage account</a>
+	<a href="http://app.instapage.com/dashboard" target="_blank">Manage your instapage account</a>
 </div>
