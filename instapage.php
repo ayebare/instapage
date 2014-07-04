@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: instapage Wordpress Plugin
+Plugin Name: Instapage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
-Description: instapage Wordpress Plugin
+Description: Instapage Wordpress Plugin
 Author: instapage
-Version: 1.6.1
+Version: 1.6.2
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -882,7 +882,7 @@ EOT;
 	{
 		if( !self::getUserId() )
 		{
-			echo '<script type="text/javascript">window.location="'. get_bloginfo('url') .'/wp-admin/options-general.php?page='. plugin_basename(__FILE__) .'";</script>';
+			echo '<script type="text/javascript">window.location="'. admin_url( 'options-general.php?page='. plugin_basename( __FILE__ ) ) .'";</script>';
 		}
 
 		$path = esc_html(get_post_meta(get_the_ID(), 'instapage_slug', true));

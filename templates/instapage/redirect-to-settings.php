@@ -1,3 +1,3 @@
 <script type="text/javascript">
-	window.location="<?php echo get_bloginfo('url'); ?>/wp-admin/options-general.php?page=<?php echo $plugin_file; ?>";
+	window.location="<?php echo admin_url( 'options-general.php?page='. $plugin_file ); ?>";
 </script>

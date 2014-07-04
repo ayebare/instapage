@@ -13,7 +13,7 @@
 					<div class="error"><?php echo $error; ?></div>
 				<?php endif; ?>
 
-				<form method="post" action="<?php echo get_bloginfo('url'); ?>/wp-admin/options-general.php?page=<?php echo $plugin_file; ?>">
+				<form method="post" action="<?php echo admin_url( 'options-general.php?page='. $plugin_file ); ?>">
 					<?php if( !$user_id ): ?>
 						<h3>Please log into your instapage account.</h3>
 						<input type="hidden" name="instapage_meta_box_nonce" value="<?php echo wp_create_nonce(basename(__FILE__)) ?>" />

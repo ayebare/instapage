@@ -4,7 +4,7 @@
 	<?php
 		if( !$user_id )
 		{
-			echo 'window.location="'.get_bloginfo('url') .'/wp-admin/options-general.php?page='. $plugin_file .'";' ;
+			echo 'window.location="'. admin_url( 'options-general.php?page='. $plugin_file ) .'";' ;
 		}
 	?>
 </script>
