@@ -658,7 +658,7 @@ EOT;
 					'service-type' => 'Wordpress',
 					'service' => $_SERVER[ 'SERVER_NAME' ],
 					'version' => $current_ver,
-					'user_id' => $instapage_user_id,
+					'user_id' => get_option( 'instapage.user_id' ),
 					'data' => $data
 				),
 				'cookies' => array()
@@ -1114,6 +1114,7 @@ EOT;
 		$form = new InstapageView( dirname( __FILE__ ) .'/templates/instapage/settings.php' );
 		$form->plugin_file = plugin_basename(__FILE__);
 		$form->user_id = $user_id;
+		$form->error = false;
 
 		if( $_POST && !$user_id )
 		{
@@ -1149,7 +1150,7 @@ EOT;
 			}
 		}
 
-		if( $_POST[ 'action' ] == 'disconnect' )
+		if( isset( $_POST[ 'action' ] ) && $_POST[ 'action' ] == 'disconnect' )
 		{
 			update_option( 'instapage.user_id', false );
 			update_option( 'instapage.plugin_hash', false );
