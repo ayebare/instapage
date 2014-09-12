@@ -30,7 +30,12 @@
 							</div>
 						</div>
 					<?php else: ?>
-						<h3>You are logged in as <?php echo $user; ?></h3>
+						<?php if( $user ): ?>
+							<h3>You are logged in as <?php echo $user; ?></h3>
+						<?php else: ?>
+							<h3>You are not properly connected</h3>
+							<p>Please click 'disconnect' and connect again. It is safe process, your pages will keep working.</p>
+						<?php endif; ?>
 						<input type="hidden" name="action" value="disconnect" />
 						<input type="submit" class="button button-primary" value="Disconnect" />
 					<?php endif; ?>

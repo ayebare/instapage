@@ -4,7 +4,7 @@ Plugin Name: Instapage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
 Description: Instapage Wordpress Plugin
 Author: instapage
-Version: 1.6.2
+Version: 1.6.3
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -17,7 +17,7 @@ require_once( 'view.class.php' );
 
 class InstapageApiCallException extends Exception {}
 
-class InstaPage
+class Instapage
 {
 	const wp_version_required = '3.4';
 	const php_version_required = '5.2';
@@ -109,7 +109,7 @@ class InstaPage
 
 	public function check404Page()
 	{
-		$not_found = $this->get404InstaPage();
+		$not_found = $this->get404Instapage();
 
 		if( $not_found === false )
 		{
@@ -117,7 +117,7 @@ class InstaPage
 		}
 		if( is_404() )
 		{
-			$id = $this->get404InstaPage();
+			$id = $this->get404Instapage();
 			$this->displayCustom404($id);
 		}
 	}
@@ -259,7 +259,7 @@ class InstaPage
 		}
 
 		// current for front page override
-		$front = $this->getFrontInstaPage();
+		$front = $this->getFrontInstapage();
 
 		if ( $front === false )
 		{
@@ -333,7 +333,7 @@ class InstaPage
 
 	public function displayCustom404($id_404)
 	{
-		// show the InstaPage
+		// show the instapage
 		$mp = $this->getPageById($id_404);
 		$html = $this->getPageHtml($mp->lp_id);
 		if (ob_get_length() > 0) ob_end_clean();
@@ -410,7 +410,7 @@ class InstaPage
 EOT;
 	}
 
-	public static function get404InstaPage()
+	public static function get404Instapage()
 	{
 		$v = get_option('instapage_404_page_id', false);
 		return ($v == '') ? false : $v;
@@ -420,7 +420,7 @@ EOT;
 	{
 		if ($this->posts === false)
 		{
-			$front = $this->getFrontInstaPage();
+			$front = $this->getFrontInstapage();
 			$p = $this->getMyPosts();
 			$res = array();
 			foreach ($p as $k => $v) {
@@ -484,13 +484,13 @@ EOT;
 		echo '<p><strong>' . $this->message . '</strong></p></div>';
 	}
 
-	public static function getFrontInstaPage()
+	public static function getFrontInstapage()
 	{
 		$v = get_option('instapage_front_page_id', false);
 		return ($v == '') ? false : $v;
 	}
 
-	public function getInstaPageById( $page_id, $cookies = false )
+	public function getInstapageById( $page_id, $cookies = false )
 	{
 		$url = self::endpoint .'/server/view-by-id/'. $page_id;
 
@@ -603,7 +603,7 @@ EOT;
 
 		try
 		{
-			$page = $this->getInstaPageById( $id, $_COOKIE );
+			$page = $this->getInstapageById( $id, $_COOKIE );
 		}
 		catch( InstapageApiCallException $e )
 		{
@@ -730,13 +730,13 @@ EOT;
 
 	public function is404Page($id)
 	{
-		$not_found = $this->get404InstaPage();
+		$not_found = $this->get404Instapage();
 		return ($id == $not_found && $not_found !== false);
 	}
 
 	public function isFrontPage($id)
 	{
-		$front = $this->getFrontInstaPage();
+		$front = $this->getFrontInstapage();
 		return ($id == $front && $front !== false);
 	}
 
@@ -783,6 +783,8 @@ EOT;
 
 	public function loadMyPages()
 	{
+		static $this_plugin;
+
 		if ( $this->my_pages === false )
 		{
 			$response = $this->instapageApiCall( 'my-pages',
@@ -796,6 +798,17 @@ EOT;
 			if( !$response )
 			{
 				throw new Exception( 'Error connecting to instapage' );
+			}
+
+			if( $response->error )
+			{
+				if( $response->error_message == 'User not found' )
+				{
+					$this_plugin = plugin_basename( __FILE__ );
+					$response->error_message .= '. Please <a href="'. admin_url( 'options-general.php?page=' . $this_plugin ) .'">relogin</a>';
+				}
+
+				throw new Exception( $response->error_message );
 			}
 
 			$pages = array();
@@ -1008,11 +1021,11 @@ EOT;
 		return $actions;
 	}
 
-	public static function setFrontInstaPage($id) {
+	public static function setFrontInstapage($id) {
 		update_option('instapage_front_page_id', $id);
 	}
 
-	public static function set404InstaPage($id) {
+	public static function set404Instapage($id) {
 		update_option('instapage_404_page_id', $id);
 	}
 
@@ -1220,25 +1233,25 @@ EOT;
 		}
 
 		// HOME PAGE
-		$old_front = $this->getFrontInstaPage();
+		$old_front = $this->getFrontInstapage();
 
 		if ($front_page)
 		{
-			$this->setFrontInstaPage($post_id);
+			$this->setFrontInstapage($post_id);
 		}
 		elseif ( $old_front == $post_id )
 		{
-			$this->setFrontInstaPage( false );
+			$this->setFrontInstapage( false );
 		}
 
 		// 404 PAGE
-		$old_nf = $this->get404InstaPage();
+		$old_nf = $this->get404Instapage();
 		if ($not_found_page) {
-			$this->set404InstaPage($post_id);
+			$this->set404Instapage($post_id);
 		}
 		elseif ( $old_nf == $post_id )
 		{
-			$this->set404InstaPage(false);
+			$this->set404Instapage(false);
 		}
 
 		if ($new && $new != $old)
@@ -1401,4 +1414,4 @@ EOT;
 }}
 
 // Instance
-$instapage_instance = new InstaPage();
+$instapage_instance = new Instapage();

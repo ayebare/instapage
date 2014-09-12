@@ -1,7 +1,7 @@
-=== InstaPage Wordpress Plugin ===
+=== Instapage Wordpress Plugin ===
 Tags: instapage, landing page
 Requires at least: 3.4
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -16,22 +16,23 @@ options with your WordPress landing pages than a standalone plugin.
 
 This is what we're offering you. We allow you to publish the conversion ready
 landing pages you've built within Instapage to appear as a natural extension
-of your WordPress blog or website. All you have to do is select the “Push to
-WordPress” publishing option within Instapage when you're finished with your
+of your WordPress blog or website. All you have to do is select the 'Push to
+WordPress' publishing option within Instapage when you're finished with your
 landing page.
 
 == Installation ==
 
 Step 1: Install the plugin.
-Step 2: Create a completely customizable landing page for FREE here: http://Instapage.com
+Step 2: Create a completely customizable landing page for FREE here: http://www.instapage.com
 Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
 = 1.6 =
-- Fixed some plugins conflict, 
+- Fixed some plugins conflict,
 - Enabled tags
 - Branding change
+- Avoided PHP notices
 
 = 1.5 =
 - Allowed to use 'custom' parameter in url to track custom variables ( http://your-wordpress-website/landing-page?custom=custom-value-to-pass )
