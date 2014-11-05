@@ -4,7 +4,7 @@ Plugin Name: Instapage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
 Description: Instapage Wordpress Plugin
 Author: instapage
-Version: 1.6.3
+Version: 1.6.4
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -33,6 +33,11 @@ class Instapage
 	public function __construct()
 	{
 		$compat_status = $this->compatibility();
+
+		if( function_exists( 'w3tc_fragmentcache_flush_group' ) )
+		{
+			w3tc_fragmentcache_flush_group('instapage');
+		}
 
 		if ($compat_status !== true)
 		{
@@ -68,6 +73,7 @@ class Instapage
 		add_filter( 'the_posts', array(&$this, 'checkCustomUrl' ), 1 );
 		add_action( 'parse_request', array(&$this, 'checkRoot'), 1 );
 		add_action( 'template_redirect', array(&$this, 'check404Page'), 1 );
+
 	}
 
 	/**
@@ -383,7 +389,7 @@ class Instapage
 
 	public function fixHtmlHead($html)
 	{
-		$html = str_replace( 'PROXY_SERVICES', site_url() ."/instapage-proxy-services?url=", $html );
+		$html = str_replace( 'PROXY_SERVICES', str_replace( array( 'http://', 'https://' ), array( '//', '//' ), site_url() ) ."/instapage-proxy-services?url=", $html );
 		return $html;
 	}
 
@@ -852,11 +858,11 @@ EOT;
 		}
 
 		// get current url
-		$current = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$current = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 		// calculate the path
-		$part = substr($current, strlen(site_url()));
-
+		$part = substr( $current, strlen( str_replace( array( 'https://', 'http://' ), '', home_url() ) ) );
+		$part = rtrim( $part, '/' );
 		if ($part[0] == '/')
 		{
 			$part = substr($part, 1);
