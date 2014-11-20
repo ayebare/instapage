@@ -4,7 +4,7 @@ Plugin Name: Instapage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
 Description: Instapage Wordpress Plugin
 Author: instapage
-Version: 1.6.4
+Version: 1.6.5
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -21,7 +21,7 @@ class Instapage
 {
 	const wp_version_required = '3.4';
 	const php_version_required = '5.2';
-	const endpoint = 'http://app.instapage.com';
+	const endpoint = 'http://app.myinstapage.com';
 	//const endpoint = 'http://instapage.me';
 
 	protected $my_pages = false;
