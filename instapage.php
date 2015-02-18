@@ -4,7 +4,7 @@ Plugin Name: Instapage Wordpress Plugin
 Plugin URI: http://www.instapage.com/
 Description: Instapage Wordpress Plugin
 Author: instapage
-Version: 1.6.6
+Version: 1.6.7
 Author URI: http://www.instapage.com/
 License: GPLv2
 * Text Domain: instapage
@@ -142,17 +142,11 @@ class Instapage
 			return $this->processProxyServices();
 		}
 
-		if( $_GET[ 'instapage_post' ] )
+		if( isset( $_GET[ 'instapage_post' ] ) )
 		{
 			// draft mode
-			function get_post_id_from_slug( $slug )
-			{
-				global $wpdb;
-
-				return $wpdb->get_var( "SELECT ID FROM `{$wpdb->posts}` WHERE post_name = '". $wpdb->escape( $slug ) ."' LIMIT 1" );
-			}
-
-			$instapage_id = get_post_meta( (int) get_post_id_from_slug( $_GET[ 'instapage_post' ] ), 'instapage_my_selected_page' );
+			$post_id = $wpdb->get_var( "SELECT ID FROM `{$wpdb->posts}` WHERE post_name = '". $wpdb->escape( $_GET[ 'instapage_post' ] ) ."' LIMIT 1" );
+			$instapage_id = get_post_meta( (int) $post_id, 'instapage_my_selected_page' );
 			$html = $this->getPageHtml( $instapage_id[ 0 ] );
 		}
 		else
@@ -294,7 +288,12 @@ class Instapage
 					$html = $this->getPageHtml($mp->lp_id);
 					if (ob_get_length() > 0) ob_end_clean();
 					// flush previous cache
-					if (!(substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && ob_start("ob_gzhandler"))) ob_start();
+
+					if ( !substr_count( $_SERVER[ 'HTTP_ACCEPT_ENCODING' ], 'gzip' ) )
+					{
+						ob_start();
+					}
+
 					status_header('200');
 					print $html;
 					ob_end_flush();
@@ -535,8 +534,14 @@ EOT;
 			)
 		);
 
-		if (is_wp_error($response) || $response['response']['code'] == '500')
+		if ( is_wp_error( $response ) )
 		{
+			throw new InstapageApiCallException( $response->get_error_message() );
+		}
+
+		if ( $response[ 'response' ][ 'code' ] == '500' )
+		{
+			$response = new WP_Error( '500', __( 'Internal Server Error', 'instapage' ) );
 			throw new InstapageApiCallException( $response->get_error_message() );
 		}
 
@@ -950,7 +955,7 @@ EOT;
 	{
 		ob_start();
 		$url = $_GET[ 'url' ];
-		
+
 		if ( $url === null )
 		{
 			$url_parts = parse_url( $_SERVER[ 'REQUEST_URI' ] );
@@ -1280,7 +1285,7 @@ EOT;
 
 		// Custom URL
 		$old = get_post_meta($post_id, 'instapage_slug', true);
-		$new = trim( strip_tags( $_POST['instapage_slug'] ) );
+		$new = trim( strip_tags( rtrim( $_POST['instapage_slug'], '/' ) ) );
 
 		if ($new && $new != $old)
 		{
@@ -1302,7 +1307,7 @@ EOT;
 					'user_id' => get_option( 'instapage.user_id' ),
 					'plugin_hash' => get_option( 'instapage.plugin_hash' ),
 					'page_id' => $_POST[ 'instapage_my_selected_page' ],
-					'url' => str_replace( 'http://', '', str_replace( 'https', 'http', get_option( 'siteurl' ) . '/'. $_POST[ 'instapage_slug' ] ) ),
+					'url' => str_replace( 'http://', '', str_replace( 'https', 'http', get_option( 'siteurl' ) . '/'. rtrim( $_POST[ 'instapage_slug' ], '/' ) ) ),
 					'secure' => is_ssl()
 				)
 			);
