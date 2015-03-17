@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2011 Marek Dajnowski <marek@dajnowski.net>
+ * Copyright (C) 2015 Instapage support@instapage.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * @package LiteEntityLib
+ * source: https://github.com/fornve/LiteEntityLib/blob/master/class/View.class.php
  */
 
-class InstapageView
+class InstapageView extends instapage
 {
 	protected $template_data = array();
-	protected $templates = null;
+	var $templates = null;
 
 	public function __construct( $templates = null, $attributes = null )
 	{
-		if( $attributes ) foreach( $attributes as $key => $value )
+		if( $attributes )
 		{
-			$this->template_data[ $key ] = $value;
+			foreach( $attributes as $key => $value )
+			{
+				$this->template_data[ $key ] = $value;
+			}
+		}
+
+		$this->templates = $templates;
+	}
+
+	public function init( $templates = null, $attributes = null )
+	{
+		if( $attributes )
+		{
+			foreach( $attributes as $key => $value )
+			{
+				$this->template_data[ $key ] = $value;
+			}
 		}
 
 		$this->templates = $templates;
@@ -72,11 +88,14 @@ class InstapageView
 				throw new Exception( "Template {$template} not found." );
 			}
 
-			if( $this->template_data ) foreach( $this->template_data as $variable_name => $variable_value )
+			if( $this->template_data )
 			{
-				$$variable_name = $variable_value;
-				unset( $variable_name );
-				unset( $variable_value );
+				foreach( $this->template_data as $variable_name => $variable_value )
+				{
+					$$variable_name = $variable_value;
+					unset( $variable_name );
+					unset( $variable_value );
+				}
 			}
 
 			ob_start();
@@ -92,9 +111,12 @@ class InstapageView
 	{
 		$view = new View( $template );
 
-		if( $variables ) foreach( $variables as $key => $value )
+		if( $variables )
 		{
-			$view->$key = $value;
+			foreach( $variables as $key => $value )
+			{
+				$view->$key = $value;
+			}
 		}
 
 		return $view->fetch();
