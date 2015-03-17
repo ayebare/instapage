@@ -11,12 +11,11 @@ License: GPLv2
 
 define( 'INSTAPAGE_PLUGIN_CLASS_NAME', 'instapage' );
 define( 'INSTAPAGE_PLUGIN_DIR', dirname( __FILE__ ) );
-define( 'INSTAPAGE_PLUGIN_URI', '/wp-content/plugins/instapage' );
+define( 'INSTAPAGE_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'INSTAPAGE_ACF_USER_GROUP', 46 );
 define( 'INSTAPAGE_PLUGIN_SETTINGS_URI', 'options-general.php?page=instapage.php' );
 define( 'INSTAPAGE_PLUGIN_FILE', __FILE__ );
-define( 'instapage_ABS_URL', plugin_dir_url( __FILE__ ) );
-define( 'INSTAPAGE_ADMIN_URL', instapage_ABS_URL . 'static/' );
+define( 'INSTAPAGE_ADMIN_URL', INSTAPAGE_PLUGIN_URI . 'static/' );
 
 function files_to_include()
 {

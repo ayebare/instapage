@@ -413,7 +413,7 @@ class InstapagePage extends instapage
 
 	public function getPageScreenshot( $post_id )
 	{
-		return instapage_ABS_URL . 'static/img/wordpress-thumb.jpg';
+		return INSTAPAGE_PLUGIN_URI . 'static/img/wordpress-thumb.jpg';
 	}
 
 	public function getPageName( $post_id )
