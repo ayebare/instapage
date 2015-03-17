@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Plugin Name: Instapage 2.0
 Description: Instapage Wordpress Plugin

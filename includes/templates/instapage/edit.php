@@ -27,7 +27,7 @@
 				<div class="input-prepend">
 					<span class="add-on"><?php echo site_url() ?>/</span><input type="textbox" class="input-xlarge" id="instapage_slug" name="instapage_slug" value="<?php echo $meta_slug ?>" />
 				</div>
-				<? /*<a class="instapage-help-ico" rel="popover" data-original-title="instapage url" data-content="Pick your own url based on your Wordpress site. It will work as if the selected instapage was a &quot;Page&quot; on your site.">&nbsp;</a> */ ?>
+				<?php /*<a class="instapage-help-ico" rel="popover" data-original-title="instapage url" data-content="Pick your own url based on your Wordpress site. It will work as if the selected instapage was a &quot;Page&quot; on your site.">&nbsp;</a> */ ?>
 				<?php if ($missing_slug): ?>
 					<label for="instapage_slug" generated="true" class="error" style="color:#ff3300" id="lp-error-path">Valid path is required.</label>
 				<?php endif; ?>
