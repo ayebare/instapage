@@ -13,7 +13,8 @@ class InstapageIndex extends instapage
 	{
 		$cols = array();
 		$cols[ 'cb' ] = $columns[ 'cb' ];
-		$cols[ 'instapage_post_preview' ] = __( 'Preview', 'instapage' );
+		// it will be turned on when we integrate screenshot service
+		//$cols[ 'instapage_post_preview' ] = __( 'Preview', 'instapage' );
 		$cols[ 'instapage_post_name' ] = __( 'Landing Page Title', 'instapage' );
 		$cols[ 'instapage_post_stats' ] = '<span class="instapage-variation-stats-column-text">' . __( 'Variation Testing Stats', 'instapage' ) . '</span> <a href="#" class="instapage-hide-stats">(Hide Stats)</a>';
 		$cols[ 'instapage_post_visits' ] = __( 'Visits', 'instapage' );

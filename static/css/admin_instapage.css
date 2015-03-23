@@ -20,7 +20,7 @@
 
 .column-instapage_post_stats
 {
-	width: 300px;
+	width: 330px;
 }
 
 th.column-instapage_post_visits,
@@ -47,6 +47,15 @@ th.manage-column a.instapage-hide-stats
 th.manage-column a.instapage-hide-stats:hover
 {
 	text-decoration: underline;
+}
+
+th.manage-column a.instapage-hide-stats:hover,
+th.manage-column a.instapage-hide-stats:active,
+th.manage-column a.instapage-hide-stats:focus,
+th.manage-column a.instapage-hide-stats:visited
+{
+	outline: none;
+	box-shadow: none;
 }
 
 .instapage-index-page-stats .variation
@@ -83,7 +92,7 @@ th.manage-column a.instapage-hide-stats:hover
 {
 	display: inline-block;
 	margin-left: 10px;
-    width: 200px;
+	width: 225px;
 }
 
 .instapage-index-page-stats .variation-conversion-rate
@@ -119,21 +128,21 @@ th.manage-column a.instapage-hide-stats:hover
 #instapage_meta_box label.control-label
 {
 	color: #333333;
-    font-family: "Open Sans",sans-serif;
-    font-size: 16px;
-    font-weight: 400;
+	font-family: "Open Sans",sans-serif;
+	font-size: 16px;
+	font-weight: 400;
 }
 
 #instapage_meta_box .input-xlarge
 {
 	background: none repeat scroll 0 0 #f0f0f0;
-    border: 1px solid #d2d2d2;
-    color: #333;
-    font-family: "Open Sans",sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    margin-top: 8px;
-    padding: 8px 6px;
+	border: 1px solid #d2d2d2;
+	color: #333;
+	font-family: "Open Sans",sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+	margin-top: 8px;
+	padding: 8px 6px;
 	border-radius: 4px;
 	height: 42px;
 	min-width: 350px;
@@ -144,8 +153,8 @@ th.manage-column a.instapage-hide-stats:hover
 	position: absolute;
 	margin: 20px 0 0 8px;
 	font-family: "Open Sans",sans-serif;
-    font-size: 16px;
-    font-weight: 300;
+	font-size: 16px;
+	font-weight: 300;
 }
 
 #instapage_meta_box #instapage_slug

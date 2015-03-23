@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Instapage 2.0
+Plugin Name: Instapage
 Description: Instapage Wordpress Plugin
-Version: 2.0
+Version: 2.01
 Plugin URI: http://www.instapage.com/
 Author: instapage
 Author URI: http://www.instapage.com/
@@ -79,7 +79,8 @@ class instapage
 	public function init()
 	{
 		$this->include_required();
-		$this->styles_scripts();
+
+		add_action( 'admin_enqueue_scripts', array( &$this, 'styles_scripts' ) );
 
 		$compat_status = self::getInstance()->includes[ 'service' ]->compatibility();
 

@@ -309,6 +309,7 @@ class InstapageService extends instapage
 		header( 'Content-Type: text/json; charset=UTF-8' );
 
 		echo trim( $response[ 'body' ] );
+		status_header( 200 );
 		exit;
 	}
 }

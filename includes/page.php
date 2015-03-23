@@ -485,17 +485,16 @@ class InstapagePage extends instapage
 		$min = 999999;
 		$max_variant_name = false;
 		$min_variant_name = false;
+		$zero_visits_added = false;
 
-		/*
-		TODO: change responsive_variant_names to all_variants (when pull will be pushed live)
-		*/
-		foreach( $stats[ 'responsive_variant_names' ] as $variant_name )
+		foreach( $stats[ 'all_variants' ] as $variant_name )
 		{
 			$page_stats[ 'variants' ][ $variant_name ] = $variant_defaults;
 
 			if ( !isset( $stats[ 'stats' ][ 'variant' ][ $variant_name ] ) )
 			{
 				$page_stats[ 'variants' ][ $variant_name ][ 'class' ] .= ' red';
+				$zero_visits_added = true;
 				continue;
 			}
 
@@ -520,7 +519,7 @@ class InstapagePage extends instapage
 			}
 		}
 
-		if ( $min_variant_name )
+		if ( $min_variant_name && !$zero_visits_added )
 		{
 			$page_stats[ 'variants' ][ $min_variant_name ][ 'class' ] .= ' red';
 		}
@@ -535,7 +534,7 @@ class InstapagePage extends instapage
 		{
 			if ( $min_variant_name )
 			{
-				if ( $variant_name !== $min_variant_name && $variant[ 'conversion_rate' ] === $page_stats[ 'variants' ][ $min_variant_name ][ 'conversion_rate' ] )
+				if ( $variant_name !== $min_variant_name && $variant[ 'conversion_rate' ] === $page_stats[ 'variants' ][ $min_variant_name ][ 'conversion_rate' ] && !$zero_visits_added )
 				{
 					$page_stats[ 'variants' ][ $variant_name ][ 'class' ] .= ' red';
 				}
