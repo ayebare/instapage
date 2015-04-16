@@ -14,14 +14,14 @@ class InstapageMain extends instapage
 
 		$labels = array
 		(
-			'name'					=> _x( 'instapage', 'Post type general name', 'instapage' ),
-			'singular_name'			=> _x( 'instapage', 'Post type singular name', 'instapage' ),
+			'name'					=> _x( 'Instapage', 'Post type general name', 'instapage' ),
+			'singular_name'			=> _x( 'Instapage', 'Post type singular name', 'instapage' ),
 			'add_new'				=> _x( 'Add New', 'instapage', 'instapage' ),
-			'add_new_item'			=> __( 'Add New instapage', 'instapage' ),
-			'edit_item'				=> __( 'Edit instapage', 'instapage' ),
-			'new_item'				=> __( 'New instapage', 'instapage' ),
-			'view_item'				=> __( 'View instapage', 'instapage' ),
-			'search_items'			=> __( 'Search instapage', 'instapage' ),
+			'add_new_item'			=> __( 'Add New Instapage', 'instapage' ),
+			'edit_item'				=> __( 'Edit Instapage', 'instapage' ),
+			'new_item'				=> __( 'New Instapage', 'instapage' ),
+			'view_item'				=> __( 'View Instapage', 'instapage' ),
+			'search_items'			=> __( 'Search Instapage', 'instapage' ),
 			'not_found'				=> __( 'Nothing found', 'instapage' ),
 			'not_found_in_trash'	=> __( 'Nothing found in Trash', 'instapage' ),
 			'parent_item_colon'		=> ''
@@ -30,7 +30,7 @@ class InstapageMain extends instapage
 		$args = array
 		(
 			'labels'				=> $labels,
-			'description'			=> __( 'Allows you to have instapage on your WordPress site.', 'instapage' ),
+			'description'			=> __( 'Allows you to have Instapage on your WordPress site.', 'instapage' ),
 			'public'				=> false,
 			'publicly_queryable'	=> true,
 			'show_ui'				=> true,

@@ -28,8 +28,9 @@ class InstapageIndex extends instapage
 	{
 		if( !self::getInstance()->includes[ 'main' ]->getUserId() )
 		{
-			wp_redirect( INSTAPAGE_PLUGIN_SETTINGS_URI );
-			exit;
+			self::getInstance()->includes[ 'admin' ]->error_message = 'You haven\'t connected Instapage account yet. Please go to: <a href="' . INSTAPAGE_PLUGIN_SETTINGS_URI . '">Instapage Settings</a>';
+			self::getInstance()->includes[ 'admin' ]->getErrorMessageHTML();
+			return false;
 		}
 
 		$post_id = get_the_ID();

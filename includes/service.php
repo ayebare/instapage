@@ -14,12 +14,12 @@ class InstapageService extends instapage
 		// Check wordpress version
 		if ( version_compare( self::wp_version_required, $wp_version, '>' ) )
 		{
-			return __( 'instapage plugin requires Wordpress minimum version of ' . self::wp_version_required, 'instapage' );
+			return __( 'Instapage plugin requires Wordpress minimum version of ' . self::wp_version_required, 'instapage' );
 		}
 
 		if ( version_compare( self::php_version_required, phpversion(), '>' ) )
 		{
-			return __( 'instapage requires PHP minimum version of ' . self::php_version_required, 'instapage' );
+			return __( 'Instapage requires PHP minimum version of ' . self::php_version_required, 'instapage' );
 		}
 
 		return true;
@@ -238,7 +238,7 @@ class InstapageService extends instapage
 
 		if ( !$response )
 		{
-			self::getInstance()->includes[ 'admin' ]->showMessage( false, 'Error while checking for update. Can\'t reach instapage server. Please check your connection.' );
+			self::getInstance()->includes[ 'admin' ]->showMessage( false, 'Error while checking for update. Can\'t reach Instapage server. Please check your connection.' );
 			return;
 		}
 
@@ -264,7 +264,7 @@ class InstapageService extends instapage
 			'upgrade-plugin_' . $plugin_file
 		);
 
-		$message = 'There is a new version of instapage plugin available! ( ' . $vew_version . ' )<br>You can <a href="' . $upgrade_url . '">update</a> to the latest version automatically or <a href="' . $url . '">download</a> the update and install it manually.';
+		$message = 'There is a new version of Instapage plugin available! ( ' . $vew_version . ' )<br>You can <a href="' . $upgrade_url . '">update</a> to the latest version automatically or <a href="' . $url . '">download</a> the update and install it manually.';
 		self::getInstance()->includes[ 'admin' ]->showMessage( true, $message );
 	}
 

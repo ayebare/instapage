@@ -32,8 +32,10 @@ class InstapageEdit extends instapage
 
 		if( !self::getInstance()->includes[ 'main' ]->getUserId() )
 		{
-			wp_redirect( INSTAPAGE_PLUGIN_SETTINGS_URI );
-			exit;
+			self::getInstance()->includes[ 'admin' ]->error_message = 'You haven\'t connected Instapage account yet. Please go to: <a href="' . INSTAPAGE_PLUGIN_SETTINGS_URI . '">Instapage Settings</a>';
+			self::getInstance()->includes[ 'admin' ]->getErrorMessageHTML();
+			self::getInstance()->includes[ 'admin' ]->removeEditPage();
+			return false;
 		}
 
 		// Field Array
@@ -52,20 +54,24 @@ class InstapageEdit extends instapage
 		}
 		catch( Exception $e )
 		{
-			echo $e->getMessage();
-			return;
+			self::getInstance()->includes[ 'admin' ]->error_message = $e->getMessage();
+			self::getInstance()->includes[ 'admin' ]->getErrorMessageHTML();
+			self::getInstance()->includes[ 'admin' ]->removeEditPage();
+			return false;
 		}
 
 		if ( !$pages )
 		{
-			echo 'N1o pages pushed to your wordpress. Please go to your <a href="http://app.instapage.com/dashboard" target="_blank">instapage</a> and push some pages.';
+			echo 'N1o pages pushed to your wordpress. Please go to your <a href="http://app.instapage.com/dashboard" target="_blank">Instapage</a> and push some pages.';
 			return;
 		}
 
 		if ( $pages === false )
 		{
-			wp_redirect( INSTAPAGE_PLUGIN_SETTINGS_URI );
-			exit;
+			self::getInstance()->includes[ 'admin' ]->error_message = 'You haven\'t published any Instapage page to Wordpress yet';
+			self::getInstance()->includes[ 'admin' ]->getErrorMessageHTML();
+			self::getInstance()->includes[ 'admin' ]->removeEditPage();
+			return false;
 		}
 
 		foreach( $pages as $key => $page )

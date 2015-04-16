@@ -188,15 +188,14 @@ class InstapagePage extends instapage
 
 			if( !$response )
 			{
-				throw new Exception( 'Error connecting to instapage' );
+				throw new Exception( 'Error connecting to Instapage' );
 			}
 
 			if( $response->error )
 			{
 				if( $response->error_message == 'User not found' )
 				{
-					$this_plugin = plugin_basename( __FILE__ );
-					$response->error_message .= '. Please <a href="'. admin_url( 'options-general.php?page=' . $this_plugin ) .'">relogin</a>';
+					$response->error_message .= '. Please <a href="' . INSTAPAGE_PLUGIN_SETTINGS_URI . '">relogin</a>';
 				}
 
 				throw new Exception( $response->error_message );

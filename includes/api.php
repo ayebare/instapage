@@ -43,11 +43,13 @@ class InstapageApi extends instapage {
 			)
 		);
 
-		if ( is_wp_error( $response ) || $response[ 'response' ][ 'code' ] == '500' )
+		if ( is_wp_error( $response ) )
 		{
-			if ( !empty( $response[ 'body' ] ) )
+			$error_message = $response->get_error_message();
+
+			if ( !empty( $error_message ) )
 			{
-				throw new InstapageApiCallException( $response->get_error_message() );
+				throw new InstapageApiCallException( $error_message );
 			}
 			else
 			{
@@ -59,7 +61,7 @@ class InstapageApi extends instapage {
 
 		if ( !is_array( $res ) && !is_object( $res ) )
 		{
-			throw new InstapageApiCallException( 'instapage Services returned empty response.' );
+			throw new InstapageApiCallException( 'Instapage Services returned empty response.' );
 		}
 
 		$data = new stdClass();
@@ -163,12 +165,12 @@ class InstapageApi extends instapage {
 		}
 		catch( InstapageApiCallException $e )
 		{
-			return self::getInstance()->includes[ 'admin' ]->formatError( "Can't reach instapage server! ". $e->getMessage() );
+			return self::getInstance()->includes[ 'admin' ]->formatError( "Can't reach Instapage server! ". $e->getMessage() );
 		}
 
 		if ($page === false)
 		{
-			return self::getInstance()->includes[ 'admin' ]->formatError( "instapage says: Page Not found!");
+			return self::getInstance()->includes[ 'admin' ]->formatError( "Instapage says: Page Not found!" );
 		}
 
 		return $this->fixHtmlHead( $page['body'] );

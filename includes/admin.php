@@ -11,6 +11,16 @@ class InstapageAdmin extends instapage
 		add_filter( 'plugin_action_links', array( &$this, 'addPluginActionLink' ), 10, 2 );
 	}
 
+	public function redirection( $location )
+	{
+		echo '<script>instapage_redirection( "' . $location . '" );</script>';
+	}
+
+	public function removeEditPage()
+	{
+		echo '<script>instapage_remove_edit();</script>';
+	}
+
 	public function showMessage( $not_error, $message )
 	{
 		$this->error_message = $message;
@@ -130,7 +140,7 @@ class InstapageAdmin extends instapage
 
 	public function pluginOptionsMenu()
 	{
-		add_options_page( 'instapage', 'instapage', 'administrator', INSTAPAGE_PLUGIN_FILE, array( &$this, 'showSettingsPage' ) );
+		add_options_page( 'Instapage', 'Instapage', 'administrator', INSTAPAGE_PLUGIN_FILE, array( &$this, 'showSettingsPage' ) );
 	}
 
 	/**
@@ -144,7 +154,7 @@ class InstapageAdmin extends instapage
 
 		if ( $file == $this_plugin )
 		{
-			$settings_link = '<a href="' . admin_url( 'options-general.php?page=' . $this_plugin ) . '">' . __('Settings', 'instapage') . '</a>';
+			$settings_link = '<a href="' . admin_url( 'options-general.php?page=' . $this_plugin ) . '">' . __('Settings', 'Instapage') . '</a>';
 			array_unshift( $links, $settings_link );
 		}
 

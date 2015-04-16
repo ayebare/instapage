@@ -15,7 +15,7 @@
 
 				<form method="post" action="<?php echo admin_url( 'options-general.php?page='. $plugin_file ); ?>">
 					<?php if( !$user_id ): ?>
-						<h3>Please log into your instapage account.</h3>
+						<h3>Please log into your Instapage account.</h3>
 						<input type="hidden" name="instapage_meta_box_nonce" value="<?php echo wp_create_nonce(basename(__FILE__)) ?>" />
 						<div class="row-fluid form-horizontal">
 							<div>
@@ -83,5 +83,5 @@
 
 <div>
 	<hr />
-	<a href="http://app.instapage.com/dashboard" target="_blank">Manage your instapage account</a>
+	<a href="http://app.instapage.com/dashboard" target="_blank">Manage your Instapage account</a>
 </div>

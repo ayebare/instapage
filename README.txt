@@ -28,6 +28,13 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.02 =
+- Fixed: disable URL validation when Instapage page type is not a "Normal page"
+- Fixed: API fatal error
+- Fixed: Cannot modify header information
+- Capitalize Instapage brand name
+- Compatibility with newest W3 Total Cache
+
 = 2.01 =
 - Minor fixes
 

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Instapage
 Description: Instapage Wordpress Plugin
-Version: 2.01
+Version: 2.02
 Plugin URI: http://www.instapage.com/
 Author: instapage
 Author URI: http://www.instapage.com/
@@ -13,7 +13,7 @@ define( 'INSTAPAGE_PLUGIN_CLASS_NAME', 'instapage' );
 define( 'INSTAPAGE_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'INSTAPAGE_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'INSTAPAGE_ACF_USER_GROUP', 46 );
-define( 'INSTAPAGE_PLUGIN_SETTINGS_URI', 'options-general.php?page=instapage.php' );
+define( 'INSTAPAGE_PLUGIN_SETTINGS_URI', 'options-general.php?page=instapage/instapage.php' );
 define( 'INSTAPAGE_PLUGIN_FILE', __FILE__ );
 define( 'INSTAPAGE_ADMIN_URL', INSTAPAGE_PLUGIN_URI . 'static/' );
 

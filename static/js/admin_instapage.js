@@ -70,6 +70,30 @@ jQuery( document ).ready()
 		});
 	});
 
+	jQuery( '#instapage_meta_box select[name="post-type"]' ).ready( function()
+	{
+		if ( jQuery( '#instapage_meta_box select[name="post-type"]' ).val() === 'home' || jQuery( '#instapage_meta_box select[name="post-type"]' ).val() === '404' )
+		{
+			jQuery( '.subsection_instapage_url' ).hide();
+		}
+		else
+		{
+			jQuery( '.subsection_instapage_url' ).show();
+		}
+
+		jQuery( '#instapage_meta_box select[name="post-type"]' ).on( 'change', function()
+		{
+			if ( jQuery( this ).val() === 'home' || jQuery( this ).val() === '404' )
+			{
+				jQuery( '.subsection_instapage_url' ).hide();
+			}
+			else
+			{
+				jQuery( '.subsection_instapage_url' ).show();
+			}
+		});
+	});
+
 	jQuery( '#instapage-wp-path' ).ready( function()
 	{
 		setTimeout( function()
@@ -107,4 +131,15 @@ jQuery( document ).ready()
 			});
 		}, 500 );
 	});
+}
+
+function instapage_redirection( location )
+{
+	jQuery( 'body' ).html( '' );
+	window.location = location;
+}
+
+function instapage_remove_edit()
+{
+	jQuery( '#poststuff' ).hide();
 }

@@ -12,7 +12,7 @@
 	<input type="hidden" name="instapage_meta_box_nonce" value="<?php echo wp_create_nonce(basename(__FILE__)) ?>" />
 	<div class="row-fluid form-horizontal">
 
-		<div class="subsection_instapage_url control-group">
+		<div class="subsection_instapage_title control-group">
 			<label for="instapage_slug" class="control-label">Title</label>
 			<div class="controls">
 				<div class="input">
@@ -35,7 +35,7 @@
 		</div>
 
 		<div class="control-group">
-			<label for="instapage_my_selected_page" class="control-label">instapage to display</label>
+			<label for="instapage_my_selected_page" class="control-label">Instapage to display</label>
 			<div class="controls">
 				<select name="instapage_my_selected_page" id="instapage_my_selected_page" class="input-xlarge">
 					<?php foreach ($field['options'] as $option): ?>
@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="control-group">
-			<label class="control-label">instapage type</label>
+			<label class="control-label">Instapage type</label>
 			<div class="controls">
 				<div class="btn-group multichoice subsection" data-subsection="instapage_url" data-target="instapage-post-type">
 
@@ -66,6 +66,6 @@
 	</div>
 
 	<div class="instapage-bottom-links">
-		<a href="<?php echo admin_url('edit.php?post_type=instapage_post') ?>" type="submit" class="btn">Back</a> | <a href="http://app.instapage.com/dashboard" target="_blank">Manage your instapage account</a>
+		<a href="<?php echo admin_url('edit.php?post_type=instapage_post') ?>" type="submit" class="btn">Back</a> | <a href="http://app.instapage.com/dashboard" target="_blank">Manage your Instapage account</a>
 	</div>
 </div>
