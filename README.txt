@@ -28,6 +28,9 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.03 =
+- Fixed: publish problem when Instapage page type is not a "Normal page"
+
 = 2.02 =
 - Fixed: disable URL validation when Instapage page type is not a "Normal page"
 - Fixed: API fatal error
