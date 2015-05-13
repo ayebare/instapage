@@ -115,7 +115,7 @@ class InstapageService extends instapage
 	public function updateInformation( $false, $action, $args )
 	{
 		// Check if this plugins API is about this plugin
-		if ( $args->slug != 'instapage' )
+		if ( empty( $args ) || !isset( $args->slug ) || $args->slug != 'instapage' )
 		{
 			return $false;
 		}
@@ -286,8 +286,12 @@ class InstapageService extends instapage
 		ob_start();
 
 		$url = $_GET[ 'url' ];
-
 		$url = self::endpoint . $url;
+
+		if ( isset( $_POST ) && !empty( $_POST ) )
+		{
+			$_POST[ 'user_ip' ] = $_SERVER[ 'REMOTE_ADDR' ];
+		}
 
 		$response = wp_remote_post
 		(

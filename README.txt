@@ -28,6 +28,11 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.04 =
+- Feature: landing page screenshots
+- Feature: add input for extra params in page URL
+- Fixed: plugin breaks with new WP core update
+
 = 2.03 =
 - Fixed: publish problem when Instapage page type is not a "Normal page"
 

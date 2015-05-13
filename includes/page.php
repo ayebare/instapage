@@ -9,6 +9,7 @@ class InstapagePage extends instapage
 		add_filter( 'the_posts', array( &$this, 'checkCustomUrl' ), 1 );
 		add_action( 'parse_request', array( &$this, 'checkRoot' ), 1 );
 		add_action( 'template_redirect', array( &$this, 'check404Page' ), 1 );
+		add_action( 'init', array( &$this, 'refreshPageScreenshot' ), 1 );
 	}
 
 	public function parseRequest()
@@ -32,18 +33,14 @@ class InstapagePage extends instapage
 			$part = substr( $part, 1 );
 		}
 
-		// strip parameters
-		$real = explode( '?', $part );
-		$tokens = $real[ 0 ];
-
-		if ( array_key_exists( $tokens, $posts ) )
+		if ( array_key_exists( $part, $posts ) )
 		{
-			if ( $tokens == '' )
+			if ( $part == '' )
 			{
 				return false;
 			}
 
-			return $posts[ $tokens ];
+			return $posts[ $part ];
 		}
 
 		return false;
@@ -412,7 +409,46 @@ class InstapagePage extends instapage
 
 	public function getPageScreenshot( $post_id )
 	{
-		return INSTAPAGE_PLUGIN_URI . 'static/img/wordpress-thumb.jpg';
+		$page_screenshot_url = get_post_meta( $post_id, 'instapage_page_screenshot_url', true );
+		$page_screenshot_url_parts = parse_url( $page_screenshot_url );
+		parse_str( $page_screenshot_url_parts[ 'query' ], $page_screenshot_url_query );
+
+		if ( empty( $page_screenshot_url_query ) )
+		{
+			$page_screenshot_url = urldecode( $page_screenshot_url );
+		}
+
+		return $page_screenshot_url;
+	}
+
+	public function refreshPageScreenshot()
+	{
+		$current = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ];
+		$part = substr( $current, strlen( site_url() ) );
+
+		if( strpos( $part, 'instapage_refresh_screenshot' ) === false )
+		{
+			return false;
+		}
+
+		$post_keys = array( 'page_id', 'page_screenshot_url', 'plugin_hash' );
+
+		foreach( $post_keys as $post_key )
+		{
+			if ( !isset( $_POST[ $post_key ] ) || empty( $_POST[ $post_key ] ) )
+			{
+				return false;
+			}
+		}
+
+		if ( $_POST[ 'plugin_hash' ] != get_option( 'instapage.plugin_hash' ) )
+		{
+			return false;
+		}
+
+		self::getInstance()->includes[ 'edit' ]->updateMetaValueByInstapagePageId( $_POST[ 'page_id' ], 'instapage_page_screenshot_url', $_POST[ 'page_screenshot_url' ] );
+
+		die( json_encode( array( 'Page screenshot updated' ) ) );
 	}
 
 	public function getPageName( $post_id )
@@ -486,6 +522,11 @@ class InstapagePage extends instapage
 		$min_variant_name = false;
 		$zero_visits_added = false;
 
+		if ( empty( $stats[ 'all_variants' ] ) )
+		{
+			return false;
+		}
+
 		foreach( $stats[ 'all_variants' ] as $variant_name )
 		{
 			$page_stats[ 'variants' ][ $variant_name ] = $variant_defaults;
@@ -550,5 +591,26 @@ class InstapagePage extends instapage
 
 		$this->page_stats[ $post_id ] = $page_stats;
 		return $page_stats;
+	}
+
+	public function getPostIdsByInstapagePageId( $instapage_page_id )
+	{
+		global $wpdb;
+
+		if ( empty( $instapage_page_id ) )
+		{
+			return false;
+		}
+
+		$instapage_page_id = $wpdb->escape( $instapage_page_id );
+
+		$post_ids = $wpdb->get_results( "select post_id from {$wpdb->postmeta} where meta_key = 'instapage_my_selected_page' and meta_value = '$instapage_page_id'" );
+
+		if ( !empty( $post_ids ) )
+		{
+			return $post_ids;
+		}
+
+		return false;
 	}
 }

@@ -13,8 +13,7 @@ class InstapageIndex extends instapage
 	{
 		$cols = array();
 		$cols[ 'cb' ] = $columns[ 'cb' ];
-		// it will be turned on when we integrate screenshot service
-		//$cols[ 'instapage_post_preview' ] = __( 'Preview', 'instapage' );
+		$cols[ 'instapage_post_preview' ] = __( 'Preview', 'instapage' );
 		$cols[ 'instapage_post_name' ] = __( 'Landing Page Title', 'instapage' );
 		$cols[ 'instapage_post_stats' ] = '<span class="instapage-variation-stats-column-text">' . __( 'Variation Testing Stats', 'instapage' ) . '</span> <a href="#" class="instapage-hide-stats">(Hide Stats)</a>';
 		$cols[ 'instapage_post_visits' ] = __( 'Visits', 'instapage' );
@@ -44,7 +43,14 @@ class InstapageIndex extends instapage
 		switch ( $column )
 		{
 			case 'instapage_post_preview':
-				echo '<a href="' . $page_url . '" target="_blank"><img class="instapage-post-preview-image" src="' . $page_preview . '" /></a>';
+				if ( !empty( $page_preview ) )
+				{
+					echo '<a href="' . $page_url . '" target="_blank"><img class="instapage-post-preview-image" src="' . $page_preview . '" /></a>';
+				}
+				else
+				{
+					echo '<img class="instapage-post-preview-image" src="' . INSTAPAGE_PLUGIN_URI . '/assets/img/wordpress-thumb.jpg" />';
+				}
 				break;
 
 			case 'instapage_post_name':

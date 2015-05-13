@@ -149,6 +149,7 @@ class InstapageEdit extends instapage
 
 		$old = get_post_meta( $post_id, 'instapage_my_selected_page', true );
 		$new = $_POST[ 'instapage_my_selected_page' ];
+		$instapage_page_id = $new;
 		$instapage_name = $_POST[ 'instapage_name' ];
 
 		$front_page = false;
@@ -197,10 +198,10 @@ class InstapageEdit extends instapage
 		if ( $new && $new != $old )
 		{
 			update_post_meta( $post_id, 'instapage_my_selected_page', $new );
-			$page = self::getInstance()->includes[ 'page' ]->getMyPage( $new );
-
 			update_post_meta( $post_id, 'instapage_name', $instapage_name );
 		}
+
+		$this->setPageScreenshot( $instapage_page_id );
 
 		// Custom URL
 		$old = get_post_meta( $post_id, 'instapage_slug', true );
@@ -309,6 +310,47 @@ class InstapageEdit extends instapage
 				);
 			}
 		}
+	}
+
+	public function updateMetaValueByInstapagePageId( $instapage_page_id, $meta_key, $meta_value )
+	{
+		global $wpdb;
+
+		if ( empty( $instapage_page_id ) || empty( $meta_key ) || empty( $meta_value ) )
+		{
+			return false;
+		}
+
+		$post_ids = self::getInstance()->includes[ 'page' ]->getPostIdsByInstapagePageId( $instapage_page_id );
+
+		if ( !$post_ids )
+		{
+			return false;
+		}
+
+		foreach( $post_ids as $post )
+		{
+			update_post_meta( $post->post_id, $meta_key, $meta_value );
+		}
+	}
+
+	public function setPageScreenshot( $instapage_page_id )
+	{
+		$page = self::getInstance()->includes[ 'page' ]->getMyPage( $instapage_page_id );
+
+		if ( !isset( $page->configuration ) )
+		{
+			return false;
+		}
+
+		$page_configuration = unserialize( $page->configuration );
+
+		if ( !isset( $page_configuration->screenshot ) )
+		{
+			return false;
+		}
+
+		$this->updateMetaValueByInstapagePageId( $instapage_page_id, 'instapage_page_screenshot_url', $page_configuration->screenshot );
 	}
 
 	public static function setFrontInstapage( $id )

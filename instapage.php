@@ -2,7 +2,7 @@
 /*
 Plugin Name: Instapage
 Description: Instapage Wordpress Plugin
-Version: 2.03
+Version: 2.04
 Plugin URI: http://www.instapage.com/
 Author: instapage
 Author URI: http://www.instapage.com/
@@ -15,7 +15,7 @@ define( 'INSTAPAGE_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'INSTAPAGE_ACF_USER_GROUP', 46 );
 define( 'INSTAPAGE_PLUGIN_SETTINGS_URI', 'options-general.php?page=instapage/instapage.php' );
 define( 'INSTAPAGE_PLUGIN_FILE', __FILE__ );
-define( 'INSTAPAGE_ADMIN_URL', INSTAPAGE_PLUGIN_URI . 'static/' );
+define( 'INSTAPAGE_ADMIN_URL', INSTAPAGE_PLUGIN_URI . 'assets/' );
 
 function files_to_include()
 {
@@ -175,7 +175,7 @@ class instapage
 
 	public function styles_scripts()
 	{
-		$js_files = scandir( INSTAPAGE_PLUGIN_DIR . '/static/js' );
+		$js_files = scandir( INSTAPAGE_PLUGIN_DIR . '/assets/js' );
 		$js_data = array
 		(
 			'ajax_url' => admin_url( 'admin-ajax.php' )
@@ -190,12 +190,12 @@ class instapage
 					continue;
 				}
 
-				wp_register_script( str_replace( '.js', '', $js_file ), INSTAPAGE_PLUGIN_URI . '/static/js/' . $js_file, array( 'jquery' ) );
+				wp_register_script( str_replace( '.js', '', $js_file ), INSTAPAGE_PLUGIN_URI . '/assets/js/' . $js_file, array( 'jquery' ) );
 				wp_localize_script( str_replace( '.js', '', $js_file ), 'INSTAPAGE', $js_data );
 				wp_enqueue_script( str_replace( '.js', '', $js_file ) );
 			}
 
-			$css_files = scandir( INSTAPAGE_PLUGIN_DIR.'/static/css' );
+			$css_files = scandir( INSTAPAGE_PLUGIN_DIR . '/assets/css' );
 
 			foreach( $css_files as $css_file )
 			{
@@ -204,7 +204,7 @@ class instapage
 					continue;
 				}
 
-				wp_enqueue_style( str_replace( '.css', '', $css_file ), INSTAPAGE_PLUGIN_URI . '/static/css/' . $css_file );
+				wp_enqueue_style( str_replace( '.css', '', $css_file ), INSTAPAGE_PLUGIN_URI . '/assets/css/' . $css_file );
 			}
 		}
 	}

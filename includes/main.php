@@ -35,7 +35,7 @@ class InstapageMain extends instapage
 			'publicly_queryable'	=> true,
 			'show_ui'				=> true,
 			'query_var'				=> true,
-			'menu_icon'				=> INSTAPAGE_PLUGIN_URI . 'static/img/instapage-logo-16x16.png',
+			'menu_icon'				=> INSTAPAGE_PLUGIN_URI . 'assets/img/instapage-logo-16x16.png',
 			'capability_type'		=> 'page',
 			'menu_position'			=> null,
 			'rewrite'				=> false,
