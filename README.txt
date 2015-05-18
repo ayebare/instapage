@@ -28,6 +28,10 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.05 =
+- Fixed: extra params in landing page URL
+- Feature: icon in plugin installer
+
 = 2.04 =
 - Feature: landing page screenshots
 - Feature: add input for extra params in page URL

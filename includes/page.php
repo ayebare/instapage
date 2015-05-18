@@ -33,6 +33,14 @@ class InstapagePage extends instapage
 			$part = substr( $part, 1 );
 		}
 
+		if ( strpos( $part, '?' ) !== false )
+		{
+			$part = explode( '?', $part );
+			$part = $part[0];
+		}
+
+		$part = trim( $part, '/' );
+
 		if ( array_key_exists( $part, $posts ) )
 		{
 			if ( $part == '' )
