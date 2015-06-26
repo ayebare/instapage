@@ -28,6 +28,10 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.06 =
+- Fixed: conflict with WooCommerce
+- Fixed: submission request failed
+
 = 2.05 =
 - Fixed: extra params in landing page URL
 - Feature: icon in plugin installer

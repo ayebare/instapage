@@ -2,7 +2,7 @@
 /*
 Plugin Name: Instapage
 Description: Instapage Wordpress Plugin
-Version: 2.05
+Version: 2.06
 Plugin URI: http://www.instapage.com/
 Author: instapage
 Author URI: http://www.instapage.com/
