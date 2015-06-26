@@ -270,15 +270,12 @@ class InstapageService extends instapage
 
 	public function isServicesRequest()
 	{
-		// get current url
-		$current = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ];
-		// calculate the path
-		$part = substr( $current, strlen( site_url() ) );
-
-		if( strpos( $part, 'instapage-proxy-services' ) === 1 )
+		if( strpos( $_SERVER[ 'REQUEST_URI' ], 'instapage-proxy-services' ) !== false )
 		{
 			return true;
 		}
+
+		return false;
 	}
 
 	public function processProxyServices()

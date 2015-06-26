@@ -4,9 +4,12 @@ class InstapageIndex extends instapage
 {
 	public function init()
 	{
-		add_filter( 'manage_edit-instapage_post_columns', array( &$this, 'editPostsColumns' ) );
-		add_action( 'manage_posts_custom_column', array( &$this, 'populateColumns' ) );
-		add_filter( 'post_row_actions', array( &$this, 'removeQuickEdit' ), 10, 2 );
+		if ( $_GET[ 'post_type' ] == 'instapage_post' )
+		{
+			add_filter( 'manage_edit-instapage_post_columns', array( &$this, 'editPostsColumns' ) );
+			add_action( 'manage_posts_custom_column', array( &$this, 'populateColumns' ) );
+			add_filter( 'post_row_actions', array( &$this, 'removeQuickEdit' ), 10, 2 );
+		}
 	}
 
 	public function editPostsColumns( $columns )

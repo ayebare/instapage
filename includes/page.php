@@ -7,9 +7,18 @@ class InstapagePage extends instapage
 	public function init()
 	{
 		add_filter( 'the_posts', array( &$this, 'checkCustomUrl' ), 1 );
+		add_action( 'init', array( &$this, 'isProxy' ), 1 );
 		add_action( 'parse_request', array( &$this, 'checkRoot' ), 1 );
 		add_action( 'template_redirect', array( &$this, 'check404Page' ), 1 );
 		add_action( 'init', array( &$this, 'refreshPageScreenshot' ), 1 );
+	}
+
+	public function isProxy()
+	{
+		if( self::getInstance()->includes[ 'service' ]->isServicesRequest() )
+		{
+			return self::getInstance()->includes[ 'service' ]->processProxyServices();
+		}
 	}
 
 	public function parseRequest()
