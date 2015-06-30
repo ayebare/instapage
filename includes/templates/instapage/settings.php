@@ -51,6 +51,23 @@
 
 			<div style="clear: both"></div>
 		</div>
+
+		<?php if( $user ): ?>
+			<div class="instapage-form">
+				<div style="clear: both"></div><p><hr></p>
+				<h3>Cross-origin proxy services <?php echo $cross_origin_proxy_services; ?></h3>
+				<form method="post" action="<?php echo admin_url( 'options-general.php?page='. $plugin_file ); ?>">
+					<p>
+						<input type="hidden" name="action" value="cross_origin_proxy_services" />
+						<input type="checkbox" name="cross_origin_proxy_services" value="1" id="cross_origin_proxy_services" <?php if ( $cross_origin_proxy_services ): ?>checked="checked"<?php endif; ?> />
+						<span>Uncheck this if you have problems with sending submissions from landing page</span>
+					</p>
+					<p>
+						<input type="submit" class="button button-primary" value="Save" />
+					</p>
+				</form>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
 

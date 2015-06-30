@@ -81,7 +81,13 @@ class InstapageApi extends instapage {
 
 	public function fixHtmlHead( $html )
 	{
-		$html = str_replace( 'PROXY_SERVICES', str_replace( array( 'http://', 'https://' ), array( '//', '//' ), site_url() ) ."/instapage-proxy-services?url=", $html );
+		$cross_origin_proxy_services = get_option( 'instapage.cross_origin_proxy_services' );
+
+		if ( $cross_origin_proxy_services )
+		{
+			$html = str_replace( 'PROXY_SERVICES', str_replace( array( 'http://', 'https://' ), array( '//', '//' ), site_url() ) ."/instapage-proxy-services?url=", $html );
+		}
+
 		return $html;
 	}
 

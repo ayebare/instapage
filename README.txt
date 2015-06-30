@@ -28,6 +28,9 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.07 =
+- Fixed: problem with sending submission from landing page
+
 = 2.06 =
 - Fixed: conflict with WooCommerce
 - Fixed: submission request failed

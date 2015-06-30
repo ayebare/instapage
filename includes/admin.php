@@ -9,6 +9,17 @@ class InstapageAdmin extends instapage
 		add_action( 'admin_enqueue_scripts', array( &$this, 'customizeAdministration' ), 11 );
 		add_action( 'admin_menu', array( &$this, 'pluginOptionsMenu' ), 11 );
 		add_filter( 'plugin_action_links', array( &$this, 'addPluginActionLink' ), 10, 2 );
+		add_action( 'init', array( &$this, 'setCrossOriginProxyServicesIfNotExists' ), 10 );
+	}
+
+	public function setCrossOriginProxyServicesIfNotExists()
+	{
+		$cross_origin_proxy_services = get_option( 'instapage.cross_origin_proxy_services' );
+
+		if ( $cross_origin_proxy_services === false )
+		{
+			update_option( 'instapage.cross_origin_proxy_services', 1 );
+		}
 	}
 
 	public function redirection( $location )
@@ -112,6 +123,13 @@ class InstapageAdmin extends instapage
 			update_option( 'instapage.plugin_hash', false );
 			$form->user_id = null;
 		}
+
+		if ( isset( $_POST[ 'action' ] ) && $_POST[ 'action' ] == 'cross_origin_proxy_services' )
+		{
+			update_option( 'instapage.cross_origin_proxy_services', $_POST[ 'cross_origin_proxy_services' ] );
+		}
+
+		$form->cross_origin_proxy_services = get_option( 'instapage.cross_origin_proxy_services' );
 
 		if( $user_id )
 		{
