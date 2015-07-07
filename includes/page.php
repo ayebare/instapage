@@ -8,7 +8,7 @@ class InstapagePage extends instapage
 	{
 		add_filter( 'the_posts', array( &$this, 'checkCustomUrl' ), 1 );
 		add_action( 'init', array( &$this, 'isProxy' ), 1 );
-		add_action( 'parse_request', array( &$this, 'checkRoot' ), 1 );
+		add_action( 'wp', array( &$this, 'checkRoot' ), 1 );
 		add_action( 'template_redirect', array( &$this, 'check404Page' ), 1 );
 		add_action( 'init', array( &$this, 'refreshPageScreenshot' ), 1 );
 	}
@@ -283,22 +283,7 @@ class InstapagePage extends instapage
 			return;
 		}
 
-		// get current full url
-		$current = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ];
-		// calculate the path
-		$part = substr( $current, strlen( site_url() ) );
-		// remove any variables from the url
-		$pos = strpos( $part, '?' );
-		$rest_part = false;
-
-		if ( $pos !== false )
-		{
-			$rest_part = substr( $part, $pos, strlen( $part ) );
-			$part = substr( $part, 0, $pos );
-		}
-
-		// display the homepage if enabled
-		if ( $part === '' || $part == 'index.php' || $part == '/' || $part == '/index.php' )
+		if ( is_home() || is_front_page() )
 		{
 			if ( $front !== false )
 			{

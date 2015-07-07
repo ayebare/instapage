@@ -28,6 +28,10 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.08 =
+- Fixed: short links issue
+- Added: WP repository thumbnail and banner
+
 = 2.07 =
 - Fixed: problem with sending submission from landing page
 
