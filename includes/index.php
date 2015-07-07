@@ -4,7 +4,7 @@ class InstapageIndex extends instapage
 {
 	public function init()
 	{
-		if ( $_GET[ 'post_type' ] == 'instapage_post' )
+		if ( isset( $_GET[ 'post_type' ] ) && $_GET[ 'post_type' ] == 'instapage_post' )
 		{
 			add_filter( 'manage_edit-instapage_post_columns', array( &$this, 'editPostsColumns' ) );
 			add_action( 'manage_posts_custom_column', array( &$this, 'populateColumns' ) );
