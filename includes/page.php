@@ -283,8 +283,18 @@ class InstapagePage extends instapage
 			return;
 		}
 
-		if ( is_home() || is_front_page() )
+		$home_url = str_replace( array( 'http://', 'https://' ), '', rtrim( get_home_url(), '/' ) );
+		$home_url_segments = explode( '/', $home_url );
+		$uri_segments = explode( '?', $_SERVER[ 'REQUEST_URI' ] );
+		$uri_segments = explode( '/', rtrim( $uri_segments[0], '/' ) );
+
+		if ( count( $uri_segments ) == count( $home_url_segments ) )
 		{
+			if ( count( $home_url_segments ) > 1 && $home_url_segments[1] != $uri_segments[1] )
+			{
+				return false;
+			}
+
 			if ( $front !== false )
 			{
 				$mp = $this->getPageById( $front );

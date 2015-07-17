@@ -28,6 +28,9 @@ Step 3: Sync your masterpiece to wordpress with one click.
 
 == Changelog ==
 
+= 2.10 =
+- Fixed: instapage landing page appears on /blog for no reason
+
 = 2.09 =
 - Fixed: Notice: Undefined index: post_type
 
